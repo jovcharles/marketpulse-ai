@@ -1,5 +1,6 @@
 from extractors.market_date import fetch_prices
 from pipeline.loaders.postgres import initialize_database
+from pipeline.loaders.prices import load_prices
 from transformers.prices import transform_prices
 
 
@@ -16,6 +17,11 @@ def run_pipeline() -> None:
         return
 
     initialize_database()
+    loaded_count = load_prices(clean_prices)
+
+    print(f"Extracted rows: {len(raw_prices)}")
+    print(f"Clean rows: {len(clean_prices)}")
+    print(f"Rows processed by loader: {loaded_count}")
 
 
 run_pipeline()
