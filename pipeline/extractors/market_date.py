@@ -12,17 +12,20 @@ Its responsibility is to:
 
 def fetch_prices(symbols: list[str], period, interval) -> pd.DataFrame:
 
-    data = yf.download(
-        tickers=symbols,
-        period=period,
-        interval=interval,
-        auto_adjust=False,
-        group_by="ticker",
-        progress=False,
-        threads=True,
-    )
-    if data.empty:
-        print("No market data returned.")
+    data = []
+    for symbol in symbols:
+        finance_data = yf.Ticker(symbol).history(
+            period=period,
+            interval=interval,
+        )
+
+        finance_data = finance_data.reset_index()
+
+        finance_data["symbol"] = symbol
+        data.append(finance_data)
+
+    if not data:
+        print("No market data returned")
         return pd.DataFrame()
 
-    return data
+    return pd.concat(data, ignore_index=True)
