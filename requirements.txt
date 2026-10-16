@@ -1,0 +1,6 @@
+
+pandas
+yfinance
+psycopg[binary]
+python-dotenv
+pytest
