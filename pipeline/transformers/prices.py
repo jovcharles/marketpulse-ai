@@ -41,12 +41,12 @@ def transform_prices(raw_data: pd.DataFrame) -> pd.DataFrame:
         raw_data[column] = pd.to_numeric(
             raw_data[column],
             errors="coerce",
-        )
+        ).astype(float)
 
-    raw_data.drop_duplicates(subset=["symbol", "timestamp"], keep="last")
-
+    raw_data = raw_data.drop_duplicates(subset=["symbol", "timestamp"], keep="last")
     raw_data = raw_data.dropna()
     raw_data = filter_invalid_prices(raw_data)
+    return raw_data
 
 
 def filter_invalid_prices(df: pd.DataFrame) -> pd.DataFrame:
