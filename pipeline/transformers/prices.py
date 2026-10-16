@@ -51,7 +51,7 @@ def transform_prices(raw_data: pd.DataFrame) -> pd.DataFrame:
 
 def filter_invalid_prices(df: pd.DataFrame) -> pd.DataFrame:
     """Filter out rows with invalid price data"""
-    df = df[(df["high"] >= df["low"]) & (df["open"] >= 0) & (df["close"] >= 0)]
+    df = df[(df["open"] >= 0) & (df["close"] >= 0)]
     # Filter out rows where the high price is less than the low price
     df = df[df["high"] >= df["low"]]
 
