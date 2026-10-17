@@ -173,3 +173,4 @@ Some ideas for where this could go next:
 ## Final note
 
 This repo reflects my first take on AI automation and data-driven experimentation. It is intentionally simple, honest, and practical. The point is to learn and improve over time, not to pretend the project is already complete.
+I used ChatGPT and various documentations for this as a guide.
