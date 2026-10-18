@@ -1,14 +1,6 @@
 import yfinance as yf
 import pandas as pd
 
-""" 
-Its responsibility is to:
-1. Send a request to your chosen financial-data API.
-2. Check whether the request succeeded.
-3. Parse the response.
-4. Return raw data to the next step.
-"""
-
 
 def fetch_prices(symbols: list[str], period, interval) -> pd.DataFrame:
 

@@ -1,6 +1,6 @@
 import pandas as pd
 
-from pipeline.loaders.postgres import get_connection
+from loaders.postgres import get_connection
 
 
 def load_prices(prices: pd.DataFrame) -> int:

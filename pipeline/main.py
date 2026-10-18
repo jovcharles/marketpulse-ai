@@ -1,7 +1,11 @@
 from extractors.market_date import fetch_prices
-from pipeline.loaders.postgres import initialize_database
-from pipeline.loaders.prices import load_prices
-from transformers.prices import transform_prices
+from loaders.postgres import initialize_database
+from loaders.prices import load_prices
+from loaders.news import load_articles
+from transformations.prices import transform_prices
+from transformations.news import transform_news_articles
+from extractors.news import fetch_bitcoin_news
+from embeddings.news_embeddings import embed_news
 
 
 def run_pipeline() -> None:
@@ -19,9 +23,24 @@ def run_pipeline() -> None:
     initialize_database()
     loaded_count = load_prices(clean_prices)
 
-    print(f"Extracted rows: {len(raw_prices)}")
-    print(f"Clean rows: {len(clean_prices)}")
-    print(f"Rows processed by loader: {loaded_count}")
+    raw_news_articles = fetch_bitcoin_news()
+
+    if not raw_news_articles:
+        print("No news articles found. Exiting pipeline.")
+        return
+
+    news_articles: list[dict] = transform_news_articles(raw_articles=raw_news_articles)
+
+    for article in news_articles:
+        article["vector"] = embed_news(
+            title=article["title"],
+        )
+
+    article_count = load_articles(news_articles)
+
+    print(
+        f"Pipeline completed. Loaded {loaded_count} prices and {article_count} news articles."
+    )
 
 
 run_pipeline()

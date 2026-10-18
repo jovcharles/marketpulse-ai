@@ -10,3 +10,14 @@ CREATE TABLE IF NOT EXISTS prices (
 
     PRIMARY KEY (symbol, timestamp)
 );
+
+CREATE EXTENSION IF NOT EXISTS vector;
+
+CREATE TABLE IF NOT EXISTS news_articles (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title TEXT NOT NULL,
+    url TEXT NOT NULL UNIQUE,
+    published_at TIMESTAMPTZ,
+    source TEXT,
+    embedding vector(384)
+);

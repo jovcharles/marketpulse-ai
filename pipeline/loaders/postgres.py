@@ -3,6 +3,7 @@ from pathlib import Path
 
 
 import psycopg
+from pgvector.psycopg import register_vector
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -15,8 +16,9 @@ def get_connection():
 
     if not database_url:
         raise RuntimeError("DATABASE_URL environment variable is not set.")
-
-    return psycopg.connect(database_url)
+    conn = psycopg.connect(database_url)
+    register_vector(conn)
+    return conn
 
 
 def initialize_database() -> None:

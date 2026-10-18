@@ -1,4 +1,4 @@
-from pipeline.transformers.prices import filter_invalid_prices, transform_prices
+from pipeline.transformations.prices import filter_invalid_prices, transform_prices
 import pandas as pd
 
 
