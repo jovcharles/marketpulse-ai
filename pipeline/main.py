@@ -6,6 +6,7 @@ from transformations.prices import transform_prices
 from transformations.news import transform_news_articles
 from extractors.news import fetch_bitcoin_news
 from embeddings.news_embeddings import embed_news
+from embeddings.search import search_news
 
 
 def run_pipeline() -> None:

@@ -1,6 +1,4 @@
-from sentence_transformers import SentenceTransformer
-
-model = SentenceTransformer("all-MiniLM-L6-v2")
+from embeddings.model import model
 
 
 def embed_news(title: str, description: str = "") -> list[float]:
