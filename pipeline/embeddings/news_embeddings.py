@@ -1,12 +1,9 @@
-from embeddings.model import model
+from shared.embeddings.model import get_model
+from shared.embeddings.service import generate_embedding
 
 
 def embed_news(title: str, description: str = "") -> list[float]:
     text = f"{title}".strip()
-
-    embedding = model.encode(
-        text,
-        normalize_embeddings=True,
-    )
-
+    model = get_model()
+    embedding = generate_embedding(text)
     return embedding.tolist()

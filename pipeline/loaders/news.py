@@ -1,4 +1,4 @@
-from .postgres import get_connection
+from shared.database.connection import get_connection
 
 
 def load_articles(articles: list[dict]) -> int:

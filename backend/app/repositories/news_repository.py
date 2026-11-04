@@ -1,17 +1,11 @@
-from embeddings.model import model
-from loaders.postgres import get_connection
+from shared.database.connection import get_connection
 
 
-def search_news(query: str, limit: int = 5) -> list[dict]:
-    """Find news articles sematically similar to a search query."""
+def search_similar_news(query_embedding: list[float], limit: int = 5) -> list[dict]:
+    """Find news articles semantically similar to a given embedding."""
 
-    if not query.strip():
+    if not query_embedding:
         return []
-
-    query_embedding = model.encode(
-        query.strip(),
-        normalize_embeddings=True,
-    ).tolist()
 
     vector = "[" + ",".join(str(value) for value in query_embedding) + "]"
 
