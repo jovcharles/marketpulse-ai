@@ -1,15 +1,37 @@
+from datetime import datetime
+
 from shared.database.connection import get_connection
 
 
-def search_similar_news(query_embedding: list[float], limit: int = 5) -> list[dict]:
-    """Find news articles semantically similar to a given embedding."""
+def search_similar_news(
+    query_embedding: list[float],
+    limit: int = 5,
+    start_date: datetime | None = None,
+    end_date: datetime | None = None,
+) -> list[dict]:
 
     if not query_embedding:
         return []
 
+    if not 1 <= limit <= 100:
+        raise ValueError("Limit must be between 1 and 100")
+
     vector = "[" + ",".join(str(value) for value in query_embedding) + "]"
 
-    sql = """
+    conditions = ["embedding IS NOT NULL"]
+    params = []
+
+    if start_date is not None:
+        conditions.append("published_at >= %s")
+        params.append(start_date)
+
+    if end_date is not None:
+        conditions.append("published_at < %s")
+        params.append(end_date)
+
+    where_clause = " AND ".join(conditions)
+
+    sql = f"""
         SELECT
             id,
             title,
@@ -18,13 +40,16 @@ def search_similar_news(query_embedding: list[float], limit: int = 5) -> list[di
             source,
             1 - (embedding <=> %s::vector) AS similarity
         FROM news_articles
-        WHERE embedding IS NOT NULL
+        WHERE {where_clause}
         ORDER BY embedding <=> %s::vector
         LIMIT %s;
     """
+
+    params = [vector, *params, vector, limit]
+
     with get_connection() as connection:
         with connection.cursor() as cursor:
-            cursor.execute(sql, (vector, vector, limit))
+            cursor.execute(sql, params)
             rows = cursor.fetchall()
 
     return [

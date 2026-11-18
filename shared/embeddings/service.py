@@ -1,4 +1,4 @@
-from .model import get_model
+from shared.embeddings.model import get_model
 
 
 def generate_embedding(text: str) -> list[float]:
