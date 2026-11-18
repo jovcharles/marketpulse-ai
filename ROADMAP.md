@@ -19,16 +19,16 @@ Build an AI-powered query planner that analyzes natural language questions, extr
 
 ---
 
-## Phase 2: Structured SQL Retrieval & Analytical Service
+## Phase 2: Structured SQL Retrieval & Analytical Service (Completed)
 
 ### Objective
 Implement secure, read-only analytical SQL query execution based on plans generated in Phase 1.
 
 ### Key Milestones
-- [ ] Implement `PriceRepository` for structured historical price retrieval and aggregations (OHLCV, price changes, highs/lows, moving averages).
-- [ ] Implement SQL query validator ensuring strict read-only access, parameterized queries, and execution timeouts.
-- [ ] Implement `PriceService` for business logic and statistical calculations.
-- [ ] Expose price retrieval endpoints in the backend.
+- [x] Implement `PriceRepository` for structured historical price retrieval and aggregations (OHLCV, price changes, highs/lows, moving averages).
+- [x] Implement SQL query validator ensuring strict read-only access, parameterized queries, and execution timeouts.
+- [x] Implement `PriceService` for business logic and statistical calculations.
+- [x] Expose price retrieval endpoints in the backend.
 
 ---
 

@@ -27,4 +27,6 @@ def fetch_bitcoin_news() -> list[dict]:
     return articles
 
 
-fetch_bitcoin_news()
+if __name__ == "__main__":
+    fetch_bitcoin_news()
+

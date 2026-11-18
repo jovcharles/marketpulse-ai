@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from backend.app.routes.news_routes import router as news_router
+from backend.app.routes.price_routes import router as price_router
 from backend.app.routes.query_routes import router as query_router
 
 app = FastAPI(
@@ -10,4 +11,6 @@ app = FastAPI(
 
 
 app.include_router(news_router)
+app.include_router(price_router)
 app.include_router(query_router)
+
